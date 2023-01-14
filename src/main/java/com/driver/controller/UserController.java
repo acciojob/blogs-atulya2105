@@ -1,6 +1,5 @@
 package com.driver.controller;
 
-import com.driver.RequestDto.UserDto;
 import com.driver.models.User;
 import com.driver.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +15,26 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createUser(@RequestBody UserDto userDto) {
-        userService.createUser(userDto);
+    public ResponseEntity<Void> createUser(@RequestBody User user) {
+        userService.createUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity deleteUser(@PathVariable int userId) {
-        return new ResponseEntity<>("Deleted",HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteUser(@PathVariable int userId) {
+        userService.deleteUser(userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Void> updateUser(@RequestBody User user) {
+        userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/find/{username}")
     public ResponseEntity<User> findUserByUsername(@PathVariable String username) {
-        User user = userService.findUserByUsername(username);
+        User user=userService.findUserByUsername(username);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
