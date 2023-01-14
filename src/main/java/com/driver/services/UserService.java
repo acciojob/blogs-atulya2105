@@ -1,5 +1,6 @@
 package com.driver.services;
 
+import com.driver.RequestDto.UserDto;
 import com.driver.models.*;
 import com.driver.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,20 @@ public class UserService {
     @Autowired
     BlogService blogService3;
 
-    public void createUser(User user){
+    public void createUser(UserDto userDto){
+        User user = new User();
+        user.setUserName(userDto.getUserName());
+        user.setEmail(userDto.getEmail());
+        user.setMobileNo(userDto.getMobileNo());
+        userRepository3.save(user);
+
+
     }
 
     public void deleteUser(int userId){
+//
+       userRepository3.deleteById(userId);
+
     }
 
     public void updateUser(User user){
@@ -27,6 +38,6 @@ public class UserService {
     }
 
     public User findUserByUsername(String username){
-        return userRepository3.findByUsername(username);
+        return userRepository3.findByUserName(username);
     }
 }

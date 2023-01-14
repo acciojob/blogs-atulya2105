@@ -13,16 +13,20 @@ import java.util.List;
 @RequestMapping("/blogs")
 public class BlogController {
 
-    @GetMapping
+
+    @Autowired
+    BlogService blogService;
+
     public ResponseEntity<Integer> getAllBlogs() {
         int countOfBlogs = 0;
         return new ResponseEntity<>(countOfBlogs, HttpStatus.OK);
     }
 
-    @PostMapping
+
     public ResponseEntity createBlog(@RequestParam Integer userId ,
                                            @RequestParam String title,
                                            @RequestParam String content) {
+
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
